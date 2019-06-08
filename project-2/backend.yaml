@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-2-backend
+  labels:
+    app: project-2-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: project-2-backend
+  template:
+    metadata:
+      labels:
+        app: project-2-backend
+    spec:
+      containers:
+      - name: project-2-backend
+        image: backend:1
+        ports:
+        - containerPort: 3000
+        imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: project-2-backend
+  labels:
+    app: project-2-backend
+spec:
+  ports:
+  - port: 3000
+    targetPort: 3000
+  selector:
+    app: project-2-backend
